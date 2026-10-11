@@ -7,7 +7,7 @@ import { AIStatusBadge } from '../components/AIStatusBadge';
 import { Button } from '../components/Button';
 
 export function SettingsPage() {
-  const { status, modelInfo, checkStatus } = useModelStatus();
+  const { status, modelInfo, checkStatus, isGroq } = useModelStatus();
   const { entries, exportEntries, deleteAll } = useJournal();
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [deleting, setDeleting] = useState(false);
@@ -62,17 +62,17 @@ export function SettingsPage() {
           </div>
         </Section>
 
-        {/* Local AI */}
-        <Section title="Local AI" icon={<Code2 size={15} />}>
+        {/* AI Provider */}
+        <Section title={isGroq ? 'Groq AI (Cloud)' : 'Local AI (Ollama)'} icon={<Code2 size={15} />}>
           <InfoRow label="Status">
-            <AIStatusBadge status={status} modelName={modelInfo?.model_name} onRetry={checkStatus} />
+            <AIStatusBadge status={status} modelName={modelInfo?.model_name} isGroq={isGroq} onRetry={checkStatus} />
           </InfoRow>
           {modelInfo && (
             <>
               <InfoRow label="Model">
                 <span className="text-sm font-mono text-graphite">{modelInfo.model_name}</span>
               </InfoRow>
-              <InfoRow label="Ollama URL">
+              <InfoRow label={isGroq ? 'Provider URL' : 'Ollama URL'}>
                 <span className="text-sm font-mono text-graphite">{modelInfo.ollama_url}</span>
               </InfoRow>
             </>
@@ -89,11 +89,22 @@ export function SettingsPage() {
 
           {(status === 'ollama_down' || status === 'model_missing' || status === 'error') && (
             <div className="mt-4 p-4 bg-surface-secondary rounded-lg border border-border-subtle text-xs text-text-muted space-y-2">
-              <p className="font-medium text-graphite">How to set up local AI</p>
-              <p>1. Install Ollama: <a href="https://ollama.com" target="_blank" rel="noreferrer" className="text-oxide underline">ollama.com</a></p>
-              <p>2. Start it: <code className="bg-dust/40 px-1 rounded">ollama serve</code></p>
-              <p>3. Pull model: <code className="bg-dust/40 px-1 rounded">ollama pull {modelInfo?.model_name ?? 'gemma3:4b'}</code></p>
-              <p>4. Start the backend: <code className="bg-dust/40 px-1 rounded">cd backend && uvicorn app.main:app --reload</code></p>
+              {isGroq ? (
+                <>
+                  <p className="font-medium text-graphite">How to set up Groq AI</p>
+                  <p>1. Get a free key at <a href="https://console.groq.com" target="_blank" rel="noreferrer" className="text-oxide underline">console.groq.com</a></p>
+                  <p>2. Add to <code className="bg-dust/40 px-1 rounded">backend/.env</code>: <code className="bg-dust/40 px-1 rounded">GROQ_API_KEY=gsk_...</code></p>
+                  <p>3. Restart backend: <code className="bg-dust/40 px-1 rounded">uvicorn app.main:app --reload</code></p>
+                </>
+              ) : (
+                <>
+                  <p className="font-medium text-graphite">How to set up local AI</p>
+                  <p>1. Install Ollama: <a href="https://ollama.com" target="_blank" rel="noreferrer" className="text-oxide underline">ollama.com</a></p>
+                  <p>2. Start it: <code className="bg-dust/40 px-1 rounded">ollama serve</code></p>
+                  <p>3. Pull model: <code className="bg-dust/40 px-1 rounded">ollama pull {modelInfo?.model_name ?? 'llama3.2:3b'}</code></p>
+                  <p>4. Start the backend: <code className="bg-dust/40 px-1 rounded">cd backend {'&&'} uvicorn app.main:app --reload</code></p>
+                </>
+              )}
             </div>
           )}
         </Section>
@@ -168,7 +179,7 @@ export function SettingsPage() {
         <Section title="About Mundane" icon={<Info size={15} />}>
           <div className="text-sm text-text-muted space-y-2">
             <p>Version 0.1.0 — Hacktoberfest Dev Challenge 2</p>
-            <p>Built with React, TypeScript, FastAPI, and Ollama (Gemma 3).</p>
+            <p>Built with React, TypeScript, FastAPI, and {isGroq ? 'Groq AI (cloud)' : 'Ollama (local)'}.</p>
             <p>Local-first. Open-source. No required accounts.</p>
           </div>
           <div className="mt-4 flex flex-col gap-2">
@@ -181,15 +192,27 @@ export function SettingsPage() {
               <ExternalLink size={13} />
               View on GitHub
             </a>
-            <a
-              href="https://ollama.com"
-              target="_blank"
-              rel="noreferrer"
-              className="text-sm text-oxide hover:underline flex items-center gap-1.5"
-            >
-              <ExternalLink size={13} />
-              Ollama — local AI runtime
-            </a>
+            {isGroq ? (
+              <a
+                href="https://console.groq.com"
+                target="_blank"
+                rel="noreferrer"
+                className="text-sm text-oxide hover:underline flex items-center gap-1.5"
+              >
+                <ExternalLink size={13} />
+                Groq — fast cloud AI
+              </a>
+            ) : (
+              <a
+                href="https://ollama.com"
+                target="_blank"
+                rel="noreferrer"
+                className="text-sm text-oxide hover:underline flex items-center gap-1.5"
+              >
+                <ExternalLink size={13} />
+                Ollama — local AI runtime
+              </a>
+            )}
           </div>
           <div className="mt-4 pt-4 border-t border-border-subtle flex items-center gap-1.5 text-xs text-text-muted">
             <Heart size={11} className="text-oxide" />

@@ -16,10 +16,12 @@ class ReflectionResponse(BaseModel):
 
 
 class ModelStatusResponse(BaseModel):
-    ollama_available: bool
+    """Provider-agnostic AI status. Field names kept backward-compatible."""
+    ollama_available: bool   # True when the configured AI provider is reachable
     model_available: bool
     model_name: str
-    ollama_url: str
+    ollama_url: str          # Provider URL (groq://api.groq.com or http://localhost:11434)
+    provider: str = "groq"   # "groq" | "ollama"
     error: Optional[str] = None
 
 
@@ -30,7 +32,8 @@ class HealthResponse(BaseModel):
 
 class ConfigResponse(BaseModel):
     model_name: str
-    ollama_url: str
+    ollama_url: str          # Provider URL
+    provider: str = "groq"   # "groq" | "ollama"
 
 
 class QuestResponse(BaseModel):

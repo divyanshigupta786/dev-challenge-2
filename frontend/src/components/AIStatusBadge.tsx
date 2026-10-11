@@ -5,11 +5,13 @@ import type { AIStatus } from '../lib/types';
 interface AIStatusBadgeProps {
   status: AIStatus;
   modelName?: string;
+  /** Pass true when the backend is using Groq (cloud) rather than Ollama (local). */
+  isGroq?: boolean;
   onRetry?: () => void;
   className?: string;
 }
 
-export function AIStatusBadge({ status, modelName, onRetry, className }: AIStatusBadgeProps) {
+export function AIStatusBadge({ status, modelName, isGroq, onRetry, className }: AIStatusBadgeProps) {
   const configs: Record<AIStatus, { icon: React.ReactNode; label: string; color: string }> = {
     idle: {
       icon: <Cpu size={12} />,
@@ -23,17 +25,21 @@ export function AIStatusBadge({ status, modelName, onRetry, className }: AIStatu
     },
     available: {
       icon: <CheckCircle size={12} />,
-      label: modelName ? `${modelName} ready` : 'Local AI ready',
+      label: modelName
+        ? `${modelName} ready`
+        : isGroq
+          ? 'Groq AI ready'
+          : 'Local AI ready',
       color: 'text-patina',
     },
     ollama_down: {
       icon: <AlertCircle size={12} />,
-      label: 'Ollama not running',
+      label: isGroq ? 'AI unavailable' : 'Ollama not running',
       color: 'text-error-red',
     },
     model_missing: {
       icon: <AlertCircle size={12} />,
-      label: 'Model not downloaded',
+      label: isGroq ? 'Model unavailable' : 'Model not downloaded',
       color: 'text-oxide',
     },
     error: {

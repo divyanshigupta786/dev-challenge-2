@@ -32,7 +32,7 @@ export function TodayPage() {
   const navigate = useNavigate();
   const { loading: questsLoading, error: questsError, getDailyQuest, getQuestsByTheme } = useQuests();
   const { entries, loading: journalLoading } = useJournal();
-  const { status: aiStatus, modelInfo, checkStatus } = useModelStatus();
+  const { status: aiStatus, modelInfo, checkStatus, isGroq } = useModelStatus();
   const [selectedTheme, setSelectedTheme] = useState<string | null>(null);
   const [themeQuests, setThemeQuests] = useState<Quest[]>([]);
 
@@ -75,6 +75,7 @@ export function TodayPage() {
           <AIStatusBadge
             status={aiStatus}
             modelName={modelInfo?.model_name}
+            isGroq={isGroq}
             onRetry={checkStatus}
           />
         </div>

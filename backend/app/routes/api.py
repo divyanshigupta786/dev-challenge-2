@@ -1,4 +1,4 @@
-﻿from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException
 from app.schemas.models import (
     HealthResponse,
     ModelStatusResponse,
@@ -33,6 +33,7 @@ async def health():
 async def model_status():
     provider = get_active_provider()
     is_groq = settings.ai_provider == "groq"
+    provider_label = settings.ai_provider  # "groq" or "ollama"
 
     available, error = await provider.is_available()
     if not available:
@@ -41,6 +42,7 @@ async def model_status():
             model_available=False,
             model_name=provider.model,
             ollama_url="groq://api.groq.com" if is_groq else provider.base_url,
+            provider=provider_label,
             error=error,
         )
 
@@ -50,6 +52,7 @@ async def model_status():
         model_available=model_ok,
         model_name=provider.model,
         ollama_url="groq://api.groq.com" if is_groq else provider.base_url,
+        provider=provider_label,
         error=model_error,
     )
 
@@ -60,6 +63,7 @@ async def get_config():
     return ConfigResponse(
         model_name=settings.groq_model if is_groq else settings.ollama_model,
         ollama_url="groq://api.groq.com" if is_groq else settings.ollama_base_url,
+        provider=settings.ai_provider,
     )
 
 

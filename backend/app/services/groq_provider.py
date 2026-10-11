@@ -1,4 +1,4 @@
-﻿from typing import Optional
+from typing import Optional
 import httpx
 import json
 import logging
@@ -60,13 +60,8 @@ class GroqProvider:
         payload = {
             "model": self.model,
             "messages": [
-                {
-                    "role": "system",
-                    "content": (
-                        "You are a nature journaling assistant. "
-                        "Always respond with valid JSON only - no markdown, no extra text."
-                    ),
-                },
+                # The prompt already contains the full SYSTEM_PROMPT from prompt_service.py.
+                # We use a single user message so the model receives all grounding rules as context.
                 {"role": "user", "content": prompt},
             ],
             "temperature": 0.7,

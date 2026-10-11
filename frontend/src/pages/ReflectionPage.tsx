@@ -17,7 +17,7 @@ export function ReflectionPage() {
   const navigate = useNavigate();
   const location = useLocation();
   const { getEntry, updateEntry } = useJournal();
-  const { status: aiStatus, modelInfo, checkStatus } = useModelStatus();
+  const { status: aiStatus, modelInfo, checkStatus, isGroq } = useModelStatus();
 
   const entryId = location.state?.entryId as string | undefined;
   const [entry, setEntry] = useState<JournalEntry | null>(null);
@@ -59,8 +59,8 @@ export function ReflectionPage() {
       await updateEntry(entry.id, { aiReflection: result });
       setEntry((prev) => prev ? { ...prev, aiReflection: result } : prev);
     } catch (err) {
-      // Offline fallback: Use the smart local heuristic engine
-      console.info('Backend/Ollama unavailable, falling back to local heuristic reflection engine');
+      // Offline fallback: use the smart local heuristic engine
+      console.info('Backend unavailable — falling back to local heuristic reflection engine:', err);
       const heuristicResult = generateLocalHeuristicReflection(
         entry.observationText,
         entry.questTitle,
@@ -160,7 +160,7 @@ export function ReflectionPage() {
             <Sparkles size={12} />
             AI Reflection
           </h2>
-          <AIStatusBadge status={aiStatus} modelName={modelInfo?.model_name} onRetry={checkStatus} />
+          <AIStatusBadge status={aiStatus} modelName={modelInfo?.model_name} isGroq={isGroq} onRetry={checkStatus} />
         </div>
 
         <AnimatePresence mode="wait">
@@ -173,8 +173,12 @@ export function ReflectionPage() {
               className="bg-white rounded-lg border border-border-subtle p-6 text-center"
             >
               <div className="w-6 h-6 border-2 border-patina/30 border-t-patina rounded-full animate-spin mx-auto mb-3" />
-              <p className="text-sm text-text-muted">Generating reflection with local AI...</p>
-              <p className="text-xs text-text-muted mt-1 opacity-60">This may take up to a minute.</p>
+              <p className="text-sm text-text-muted">
+                {isGroq ? 'Generating reflection with Groq AI...' : 'Generating reflection with local AI...'}
+              </p>
+              {!isGroq && (
+                <p className="text-xs text-text-muted mt-1 opacity-60">This may take up to a minute.</p>
+              )}
             </motion.div>
           )}
 
@@ -194,8 +198,8 @@ export function ReflectionPage() {
                   </div>
                 </div>
               </div>
-              {(aiStatus === 'ollama_down' || aiStatus === 'model_missing') && (
-                <AIOllamaSetupInstructions status={aiStatus} modelName={modelInfo?.model_name} />
+              {!isGroq && (aiStatus === 'ollama_down' || aiStatus === 'model_missing') && (
+                <AISetupInstructions status={aiStatus} modelName={modelInfo?.model_name} isGroq={false} />
               )}
               <Button
                 variant="secondary"
@@ -212,9 +216,18 @@ export function ReflectionPage() {
           {!generating && !error && !reflection && (aiStatus === 'ollama_down' || aiStatus === 'model_missing' || aiStatus === 'error') && (
             <motion.div key="unavailable" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
               <div className="bg-white rounded-lg border border-border-subtle p-5 mb-3">
-                <p className="text-sm text-text-muted">Local AI is not available. Your observation has been saved.</p>
+                <p className="text-sm text-text-muted">
+                  {isGroq
+                    ? 'Groq AI is not reachable. Your observation has been saved.'
+                    : 'Local AI is not available. Your observation has been saved.'}
+                </p>
               </div>
-              <AIOllamaSetupInstructions status={aiStatus} modelName={modelInfo?.model_name} />
+              {!isGroq && (aiStatus === 'ollama_down' || aiStatus === 'model_missing') && (
+                <AISetupInstructions status={aiStatus} modelName={modelInfo?.model_name} isGroq={false} />
+              )}
+              {isGroq && (
+                <GroqSetupInstructions />
+              )}
             </motion.div>
           )}
 
@@ -279,7 +292,21 @@ export function ReflectionPage() {
   );
 }
 
-function AIOllamaSetupInstructions({ status, modelName }: { status: string; modelName?: string }) {
+// ── Setup instruction helpers ───────────────────────────────────
+
+function GroqSetupInstructions() {
+  return (
+    <div className="bg-surface-secondary rounded-lg border border-border-subtle p-4 text-xs text-text-muted space-y-2">
+      <p className="font-medium text-graphite">Groq AI setup</p>
+      <p>1. Get a free API key at <a href="https://console.groq.com" target="_blank" rel="noreferrer" className="underline text-oxide">console.groq.com</a></p>
+      <p>2. Add it to <code className="bg-dust/40 px-1 rounded">backend/.env</code>: <code className="bg-dust/40 px-1 rounded">GROQ_API_KEY=your_key</code></p>
+      <p>3. Restart the backend: <code className="bg-dust/40 px-1 rounded">uvicorn app.main:app --reload</code></p>
+    </div>
+  );
+}
+
+function AISetupInstructions({ status, modelName, isGroq }: { status: string; modelName?: string; isGroq: boolean }) {
+  if (isGroq) return <GroqSetupInstructions />;
   return (
     <div className="bg-surface-secondary rounded-lg border border-border-subtle p-4 text-xs text-text-muted space-y-2">
       <p className="font-medium text-graphite">Setup instructions</p>

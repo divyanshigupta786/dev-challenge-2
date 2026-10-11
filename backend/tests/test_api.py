@@ -19,6 +19,7 @@ async def test_get_config():
     data = response.json()
     assert "model_name" in data
     assert "ollama_url" in data
+    assert "provider" in data
 
 @pytest.mark.asyncio
 async def test_model_status():
@@ -30,6 +31,7 @@ async def test_model_status():
     assert "model_available" in data
     assert "model_name" in data
     assert "ollama_url" in data
+    assert "provider" in data
 
 @pytest.mark.asyncio
 async def test_reflect_validation_too_short():

@@ -31,12 +31,14 @@ export function useModelStatus() {
     checkStatus();
   }, [checkStatus]);
 
+  const isGroq = modelInfo?.provider === 'groq';
+
   const statusLabel: Record<AIStatus, string> = {
     idle: 'Checking...',
     checking: 'Checking...',
-    available: 'Local AI ready',
-    ollama_down: 'Ollama not running',
-    model_missing: 'Model not downloaded',
+    available: isGroq ? 'Groq AI ready' : 'Local AI ready',
+    ollama_down: isGroq ? 'AI unavailable' : 'Ollama not running',
+    model_missing: isGroq ? 'Model unavailable' : 'Model not downloaded',
     error: 'Backend unavailable',
   };
 
@@ -47,5 +49,6 @@ export function useModelStatus() {
     checkStatus,
     label: statusLabel[status],
     isAvailable: status === 'available',
+    isGroq,
   };
 }

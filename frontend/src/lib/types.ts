@@ -44,12 +44,14 @@ export interface ModelStatus {
   model_available: boolean;
   model_name: string;
   ollama_url: string;
+  provider: 'groq' | 'ollama'; // which AI backend is active
   error: string | null;
 }
 
 export interface AppConfig {
   model_name: string;
   ollama_url: string;
+  provider: 'groq' | 'ollama';
 }
 
 // ── App State Types ─────────────────────────────────────────────
