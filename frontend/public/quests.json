@@ -1,0 +1,244 @@
+{
+  "quests": [
+    {
+      "id": "ph-001",
+      "title": "Find a pattern that repeats in an unexpected place",
+      "description": "Look for a visual rhythm or repeating motif somewhere you wouldn't expect to find one. It might be a grid, a texture, or a shape that recurs.",
+      "theme": "Pattern Hunt",
+      "difficulty": "easy",
+      "tips": [
+        "Check drainage grates, fences, brickwork, or pavement tiles",
+        "Look up at window arrangements or balcony railings",
+        "Notice shadows cast by repeating structures"
+      ]
+    },
+    {
+      "id": "ph-002",
+      "title": "Count the different materials on a single door",
+      "description": "A door is rarely made of one thing. Find a door and identify every material you can see — wood, metal, glass, rubber, paint, fabric.",
+      "theme": "Pattern Hunt",
+      "difficulty": "easy",
+      "tips": [
+        "Include hinges, handles, frames, and weatherstripping",
+        "Note where different materials meet",
+        "Look for materials that have aged differently"
+      ]
+    },
+    {
+      "id": "ph-003",
+      "title": "Find three different textures on one ordinary wall",
+      "description": "Walls are rarely uniform. Find one wall that shows at least three distinct surface qualities — rough concrete, smooth plaster, paint, brick, tile, weathering.",
+      "theme": "Pattern Hunt",
+      "difficulty": "easy",
+      "tips": [
+        "Repairs often create texture contrasts",
+        "Notice where the light catches different surfaces differently",
+        "Look for where materials meet at an edge"
+      ]
+    },
+    {
+      "id": "ph-004",
+      "title": "Spot a color gradient in the built environment",
+      "description": "Find a surface or structure where color visibly changes from one area to another — rust fading into metal, bleached paint, water staining, or moss growth.",
+      "theme": "Pattern Hunt",
+      "difficulty": "medium",
+      "tips": [
+        "Sun exposure and moisture create natural gradients",
+        "Look at large concrete surfaces at an angle",
+        "Old brick walls often show color variation by height"
+      ]
+    },
+    {
+      "id": "ua-001",
+      "title": "Find evidence of a building that used to be here",
+      "description": "Look for ghost signs, filled-in doorways, different-colored brick patches, or foundation marks that reveal something was once attached to or built here.",
+      "theme": "Urban Archaeology",
+      "difficulty": "medium",
+      "tips": [
+        "Look for outline marks on walls where rooflines once met",
+        "Notice different brick colors or stone patches",
+        "Look for sealed-off windows or doors at odd heights"
+      ]
+    },
+    {
+      "id": "ua-002",
+      "title": "Find a sign that has outlived its purpose",
+      "description": "Ghost signs, painted-over lettering, or faded advertisements from businesses that no longer exist. What can you still read?",
+      "theme": "Urban Archaeology",
+      "difficulty": "easy",
+      "tips": [
+        "High brick walls often preserve faded painted ads",
+        "Look for embossed or cast lettering on metal fixtures",
+        "Notice text on glass that's been partially scraped off"
+      ]
+    },
+    {
+      "id": "ua-003",
+      "title": "Find a surface that shows multiple layers of repair",
+      "description": "Infrastructure repairs leave visible archaeological layers — patches over patches, different generations of paint, concrete poured at different times.",
+      "theme": "Urban Archaeology",
+      "difficulty": "easy",
+      "tips": [
+        "Pavements often show circular patches from utility work",
+        "Walls show rectangular patches where damage was fixed",
+        "Look for different shades of the same material"
+      ]
+    },
+    {
+      "id": "ua-004",
+      "title": "Find a place where two different eras of construction meet",
+      "description": "Where an old building was extended, or a new structure built against an old one. Notice how the materials and styles change at the joint.",
+      "theme": "Urban Archaeology",
+      "difficulty": "hard",
+      "tips": [
+        "Look for visible seam lines in brickwork or stonework",
+        "Notice changes in window style or proportion",
+        "Different foundation levels are sometimes visible"
+      ]
+    },
+    {
+      "id": "dd-001",
+      "title": "Find a design decision that makes your life easier without you noticing",
+      "description": "Good design is often invisible. Find a small feature — a beveled edge, a drainage channel, a non-slip surface — that solves a problem silently.",
+      "theme": "Design Detective",
+      "difficulty": "medium",
+      "tips": [
+        "Look at curb cuts, tactile paving, and handrail endings",
+        "Notice how street furniture is positioned relative to foot traffic",
+        "Check where drainage goes on sloped surfaces"
+      ]
+    },
+    {
+      "id": "dd-002",
+      "title": "Find a design decision that makes someone's life harder",
+      "description": "Bad design is everywhere — a bench with dividers to prevent lying down, a door that pushes when you expect to pull, a step where a ramp should be.",
+      "theme": "Design Detective",
+      "difficulty": "easy",
+      "tips": [
+        "Notice where people have created informal paths around official routes",
+        "Look for wear patterns showing where people actually walk",
+        "Check where pavement edges are difficult for wheels"
+      ]
+    },
+    {
+      "id": "dd-003",
+      "title": "Find a utility object that was clearly designed with care",
+      "description": "A drain cover, a lamp post, a bench, a postbox — something functional that someone also tried to make beautiful or elegant.",
+      "theme": "Design Detective",
+      "difficulty": "easy",
+      "tips": [
+        "Historic cast iron features often have decorative elements",
+        "Look at how simple shapes are refined — rounded edges, tapering forms",
+        "Notice proportions: is this object satisfying to look at?"
+      ]
+    },
+    {
+      "id": "dd-004",
+      "title": "Find evidence of how people actually use a space versus how it was designed",
+      "description": "Worn grass paths, improvised seats, moved barriers, scratched surfaces — how has real use changed or contradicted the designer's intention?",
+      "theme": "Design Detective",
+      "difficulty": "medium",
+      "tips": [
+        "Look for 'desire paths' where people cross grass or avoid official routes",
+        "Notice what's been added informally — bags, bikes, notices",
+        "Check where surfaces are worn or polished differently"
+      ]
+    },
+    {
+      "id": "ls-001",
+      "title": "Find a shadow that reveals something invisible in direct light",
+      "description": "Shadows cast by structures, vegetation, or objects sometimes make detail visible that disappears in full light — texture, lettering, form.",
+      "theme": "Light and Shadow",
+      "difficulty": "easy",
+      "tips": [
+        "Early morning and late afternoon light cast long revealing shadows",
+        "Look at text or relief carved into stone or metal",
+        "Notice how rough surfaces show more texture in raking light"
+      ]
+    },
+    {
+      "id": "ls-002",
+      "title": "Find a place where light bounces unexpectedly",
+      "description": "Reflected light from windows, puddles, polished metal, or pale surfaces can illuminate areas that seem to have no direct light source.",
+      "theme": "Light and Shadow",
+      "difficulty": "medium",
+      "tips": [
+        "Look at shadowed faces of buildings near reflective surfaces",
+        "Notice colored light from stained glass or colored awnings",
+        "Puddles reflect a different view of the sky or buildings"
+      ]
+    },
+    {
+      "id": "ls-003",
+      "title": "Find a texture that changes dramatically when viewed in different light",
+      "description": "Some surfaces look flat in overcast light but reveal deep texture in direct sun. Find one and notice exactly how the light changes what you see.",
+      "theme": "Light and Shadow",
+      "difficulty": "medium",
+      "tips": [
+        "Concrete, stone, and aged wood respond dramatically to light angle",
+        "Look at the same surface from multiple positions",
+        "Notice the difference between the lit and shadowed side"
+      ]
+    },
+    {
+      "id": "ls-004",
+      "title": "Find a shadow that creates an interesting shape separate from its source",
+      "description": "Sometimes a shadow has a clearer or more interesting form than the object casting it — a bicycle shadow, tree shadow pattern, or architectural detail.",
+      "theme": "Light and Shadow",
+      "difficulty": "easy",
+      "tips": [
+        "Fence shadows create geometric patterns on ground",
+        "Plant shadows are often more complex than the plants themselves",
+        "Look at how shadow edges change with surface texture"
+      ]
+    },
+    {
+      "id": "ug-001",
+      "title": "Find a right angle that isn't quite right",
+      "description": "Settling, subsidence, and age cause corners to shift. Find a corner, frame, or edge that appears to be a right angle but has drifted slightly.",
+      "theme": "Unexpected Geometry",
+      "difficulty": "medium",
+      "tips": [
+        "Old buildings often have corners that have settled unevenly",
+        "Look at door frames — gaps and wedges reveal movement",
+        "Cracked plaster or tile often reveals structural geometry"
+      ]
+    },
+    {
+      "id": "ug-002",
+      "title": "Find a circle in a world of rectangles",
+      "description": "Urban environments are dominated by right angles. Find a functional circular element — a drain, a pipe section, a dome, a wheel — and look closely at how it meets the rectangular world around it.",
+      "theme": "Unexpected Geometry",
+      "difficulty": "easy",
+      "tips": [
+        "Look at how circular pipes fit through rectangular walls",
+        "Notice how round columns meet square floors",
+        "Drain covers create circles in pavement grids"
+      ]
+    },
+    {
+      "id": "ug-003",
+      "title": "Find a vertical line that becomes horizontal",
+      "description": "Pipes, cables, rails, or edges that start vertical and curve or transition to horizontal. Trace the line and notice how the transition is handled.",
+      "theme": "Unexpected Geometry",
+      "difficulty": "medium",
+      "tips": [
+        "Downpipes transition from vertical to horizontal at the ground",
+        "Handrails curve at their ends",
+        "Roof edges create the junction of vertical wall and horizontal sky"
+      ]
+    },
+    {
+      "id": "ug-004",
+      "title": "Find a structure that appears to be unsupported",
+      "description": "A cantilevered overhang, a floating step, a bridge section, a shelf — something that seems to defy gravity. How does it actually work?",
+      "theme": "Unexpected Geometry",
+      "difficulty": "hard",
+      "tips": [
+        "Balconies often cantilever from a building's structure",
+        "Signs and awnings are attached at fewer points than they seem",
+        "Bridge sections are sometimes suspended rather than supported"
+      ]
+    }
+  ]
+}
