@@ -26,7 +26,7 @@ class Settings(BaseSettings):
     ollama_timeout: float = 120.0
 
     # CORS origins for local dev - restrict or set "*" in production
-    allowed_origins: list[str] = [
+    allowed_origins: str | list[str] = [
         "http://localhost:5173",
         "http://localhost:4173",
         "http://127.0.0.1:5173",
