@@ -19,7 +19,7 @@ class GroqProvider:
 
     def __init__(self):
         self.settings = get_settings()
-        self.api_key = self.settings.groq_api_key
+        self.api_key = (self.settings.groq_api_key or "").strip().strip("'").strip('"')
         self.model = self.settings.groq_model
         self.timeout = 30.0
 
