@@ -43,8 +43,8 @@ To achieve true digital detox, Mundane features the **Field Folio Studio**:
 
 ## Demo
 
-- **Live Application:** [https://dev-challenge-2.vercel.app](https://dev-challenge-2.vercel.app) *(Replace with your deployed frontend URL)*
-- **API & Backend:** [https://dev-challenge-2-production.up.railway.app](https://dev-challenge-2-production.up.railway.app) *(Replace with your deployed Railway URL)*
+- **Live Application:** [https://dev-challenge-2.vercel.app](https://dev-challenge-2.vercel.app) *(Vercel Project: [divyanshigupta491-5914/dev-challenge-2](https://vercel.com/divyanshigupta491-5914/dev-challenge-2))*
+- **API & Backend:** Hosted on [Railway](https://railway.com)
 - **GitHub Repository:** [https://github.com/divyanshigupta786/dev-challenge-2](https://github.com/divyanshigupta786/dev-challenge-2)
 
 ### Highlights to Try Out:
