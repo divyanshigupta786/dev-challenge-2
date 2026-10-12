@@ -41,8 +41,6 @@ To achieve true digital detox, Mundane features the **Field Folio Studio**:
 - **Single-Page Worksheet**: Printable A4 field notes sheet for clipboards.
 - **3D Digital Folio Viewer**: An interactive book-opening simulator featuring authentic paper folds, spine gutter shading, and tactile page-turning controls.
 
-![Tactile Field Journaling](https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=1200&q=80)
-
 ---
 
 ## Demo
