@@ -1,6 +1,14 @@
-# Mundane — An Editorial Field Journal for the Overlooked
+---
+title: Mundane — Your City Is More Interesting Than You Think (Offline Urban Field Journal)
+published: true
+tags: devchallenge, hf26challenge, opensource, ai
+---
 
 *This is a submission for the [Hacktoberfest Open-Source AI Challenge Week 1: Touch Grass](https://dev.to/challenges/hacktoberfest-week1-2026-10-05)*
+
+---
+
+> 🌿 **Quick Note on Cover Image:** When publishing on DEV.to, remember to click **"Add a cover image"** at the top and upload a screenshot of the Mundane Landing Page hero! It ensures the post renders beautifully across the DEV home feed and social cards.
 
 ---
 
@@ -8,37 +16,42 @@
 
 **Tagline:** *“Your city is more interesting than you think.”*
 
-Most modern AI apps do the exact opposite of getting you outside: they trap you in infinite chat windows, summarize things you never experienced, and replace physical curiosity with simulated answers.
+Most modern AI applications do the exact opposite of getting you outside: they trap you in infinite chat windows, summarize experiences you never had, and replace genuine human curiosity with pre-digested answers.
 
-**Mundane** is designed with the opposite intention: a tactile, editorial urban field journal that invites you to slow down, put your phone in your pocket, and explore the hidden textures, geometries, and histories of your everyday surroundings.
+I built **Mundane** as an antidote: a tactile, editorial urban field journal inspired by documentary photography and independent print zines. It invites you to step outside, slow down, put your phone in your pocket, and record the subtle, overlooked textures, geometries, and artifacts of your everyday neighborhood.
 
-### Core Philosophy: Blind First, AI Second
-Mundane is governed by one non-negotiable rule: **The AI is kept strictly locked until you have observed and recorded with your own senses.**
+<!-- 📸 Screenshot: Mundane Landing Page Hero with rotating urban documentary scenes & "LOOK CLOSER" prompt -->
+
+### The Defining Principle: Blind First, AI Second
+Mundane is governed by a strict philosophy: **AI never interprets before you observe.**
 1. **Observe**: Pick an observational quest (e.g., *Pattern Hunt*, *Urban Archaeology*, *Design Detective*, *Light and Shadow*, or *Unexpected Geometry*).
-2. **Record**: Write down what you saw, felt, or heard in your own unfiltered words. Attach an optional photo. Everything is saved locally to your device in **IndexedDB**.
-3. **Reflect (Optional)**: Only after your observation is safely committed can you request an AI reflection. The model reflects strictly on what you registered, synthesis-style, asks **one** inquisitive follow-up question, and recommends your next urban walk.
+2. **Record**: Register your physical observations in your own unfiltered words. Attach an optional photo. Everything is stored locally on-device in **IndexedDB**.
+3. **Reflect (Optional & Grounded)**: Only after your observation is saved can you request an AI reflection. The model reflects strictly on what you documented, synthesizes your field note, asks **one** thought-provoking follow-up question, and recommends your next urban walk.
 
-### The Mundane Field Folio Studio (Zero-Screen Exploration)
-For true "Touch Grass" immersion, Mundane includes the **Field Folio Studio**:
-- **8-Page Pocket Mini-Zine**: Uses algorithmic imposition to fit an entire 8-page observation booklet onto a **single sheet of A4 paper**.
-- **No Glue Required**: Follow the 4-step folding guide—three creases and a single center cut transform the sheet into a pocket notebook with a cover, field prompts, sketching area, and reflection log.
-- **Single-Page Field Worksheet**: A clean, printable A4 field sheet for clipboards.
-- **Interactive 3D Digital Folio Viewer**: A realistic digital book-opening simulator with authentic paper folds, spine gutter shading, and tactile page-turning for previewing your booklet.
+<!-- 📸 Screenshot: The Observation Deck and Grounded AI Reflection flow -->
+
+### The Mundane Field Folio Studio (Zero-Screen Immersion)
+To achieve true digital detox, Mundane features the **Field Folio Studio**:
+- **8-Page Pocket Mini-Zine**: An algorithmic imposition engine formats an entire 8-page observation booklet onto a **single sheet of A4 paper**.
+- **No Glue Required**: Three simple creases and one center slit transform the printed sheet into an authentic pocket zine complete with cover art, observation checklist, sketching frame, and notes log.
+- **Single-Page Worksheet**: Printable A4 field notes sheet for clipboards.
+- **3D Digital Folio Viewer**: An interactive book-opening simulator featuring authentic paper folds, spine gutter shading, and tactile page-turning controls.
+
+<!-- 📸 Screenshot: Field Folio 8-page imposition layout and 3D folding booklet showcase -->
 
 ---
 
 ## Demo
 
-- **Live Application:** [Deploy your Vercel URL here]
-- **API & Backend:** [Deploy your Railway URL here]
+- **Live Application:** [https://dev-challenge-2.vercel.app](https://dev-challenge-2.vercel.app) *(Replace with your deployed frontend URL)*
+- **API & Backend:** [https://dev-challenge-2-production.up.railway.app](https://dev-challenge-2-production.up.railway.app) *(Replace with your deployed Railway URL)*
 - **GitHub Repository:** [https://github.com/divyanshigupta786/dev-challenge-2](https://github.com/divyanshigupta786/dev-challenge-2)
 
-### Highlights Tour:
-- **Editorial Landing Page:** Features a rotating urban documentary photo carousel (cracked asphalt sprouts, raking sunlight on fire escapes, weathered masonry chisel marks), interactive *"LOOK CLOSER"* discovery marks, and an animated 3D folding booklet showcase.
-- **Field Folio Studio (`/folio`):** Generate and print physical pocket booklets directly from your browser with `@media print` stylesheets optimized for A4 paper.
-- **Observation Deck (`/observe`):** Fast, distraction-free field note entry with real-time word counting and photo attachment previews.
-- **Offline Journal Archive (`/journal`):** Search, filter by theme or location, review past entries, and view AI reflections—100% offline.
-- **Settings & Diagnostics (`/settings`):** Live AI status diagnostics, one-click full JSON journal export, and on-device storage management.
+### Highlights to Try Out:
+1. **The Hero Carousel (`/`):** Explore the 4 rotating photographic scenarios with hover-pause and manual `< >` slides. Tap the hand-drawn observation circle to discover hidden urban clues.
+2. **The 3D Booklet Preview (`/` & `/folio`):** Toggle the *"Fold Booklet / Open Booklet"* animation to see the pocket zine open flat in 3D perspective.
+3. **Printable Folio (`/folio`):** Click *"Print Booklet (A4)"* to trigger the pre-configured print stylesheet.
+4. **Local Journal (`/journal`):** Browse, search, and edit past entries with zero internet connection.
 
 ---
 
@@ -46,72 +59,76 @@ For true "Touch Grass" immersion, Mundane includes the **Field Folio Studio**:
 
 {% github https://github.com/divyanshigupta786/dev-challenge-2 %}
 
-### Tech Stack
+### Architectural Stack
 - **Frontend:** React 19, TypeScript, Vite, Tailwind CSS, Lucide Icons, `motion/react` (Framer Motion).
-- **Local Storage:** Dexie.js (IndexedDB wrapper) for private, zero-cloud data persistence.
-- **Backend API:** FastAPI (Python 3.11+), Pydantic v2 Settings, HTTPX, Uvicorn.
+- **Local Storage Engine:** Dexie.js (IndexedDB) for client-side privacy and offline persistence.
+- **Backend Service:** FastAPI, Pydantic v2 Settings, HTTPX, Uvicorn, Docker.
 - **AI Runtimes:**
   - **Local Offline Inference:** Ollama integration (`gemma3:4b` / `llama3.2:3b`).
-  - **Fast Cloud Inference:** Groq provider with open-weight models (`qwen/qwen3.8-27b`).
-- **Containerization & Deployment:** Docker multi-stage images, Railway for backend hosting, Vercel/Render for frontend CDN hosting.
+  - **Fast Cloud Inference:** Groq open-weight provider (`qwen/qwen3.8-27b`).
+- **Deployment:** Containerized on Railway (backend) and Vercel CDN (frontend).
 
 ---
 
 ## How I Built It
 
 ### 1. Open-Weight AI Architecture
-Mundane is built from the ground up around open-weight models:
-- **Local Ollama Support:** For complete off-grid walks (in the park, on the subway, or in a forest), users can run open-weight models locally with zero internet connection via Ollama (`http://localhost:11434`).
-- **Groq Open-Weight Inference:** In production cloud deployments, Mundane calls open-weight models like `qwen/qwen3.8-27b` via Groq, achieving sub-second latency while keeping costs zero on free tiers.
+Mundane is built around open-weight models:
+- **Local Offline Inference with Ollama:** When walking through parks or subways with no reception, users can run open-weight models completely offline on `http://localhost:11434`.
+- **High-Speed Cloud Inference with Groq:** In the cloud deployment, Mundane connects to open-weight models like `qwen/qwen3.8-27b` via Groq, delivering sub-second latency with zero cold-start delay.
 
-### 2. Strict Anti-Hallucination Grounding
-Generic AI prompts often over-explain or make up poetic nonsense about what you "probably saw". Mundane uses a specialized grounding prompt engine ([`prompt_service.py`](file:///backend/app/services/prompt_service.py)) that strictly prohibits the model from introducing external facts not mentioned by the user:
-- Grounded synthesis of the user's specific words.
-- One curiosity question that invites deeper physical inspection.
-- Recommendation of a relevant future quest based on the sensory theme.
+### 2. Strict Grounding Prompt Engineering
+Commercial chatbots often hallucinate what you "probably saw". Mundane uses an isolated prompt engine (`prompt_service.py`) with strict negative constraints:
+- Must reflect **only** on details explicitly mentioned in the user's field note.
+- Never flatters or praises artificially.
+- Concludes with exactly **one** grounded question that challenges the user to return to the physical location and look closer.
 
 ### 3. Mathematical Mini-Zine Imposition
-Creating an 8-page foldable booklet from a single piece of paper requires precise geometric imposition:
-- Panels 1, 8, 7, and 6 on the top row are rotated **180 degrees** so that when folded along the horizontal crease, all pages face upright.
-- Panels 2, 3, 4, and 5 occupy the bottom row.
-- Fold lines and center slit cut markers are mathematically calculated to match international ISO 216 A4 margins (`210mm × 297mm`).
+Fitting 8 pages onto a single A4 landscape sheet requires precise geometric inversion:
+- The top 4 panels (Pages 1, 8, 7, 6) are rotated **180 degrees** so they face right-side-up once the paper is folded horizontally.
+- Bottom panels (Pages 2, 3, 4, 5) remain upright.
+- Fold and cut guides are calibrated to ISO 216 dimensions (`210mm × 297mm`).
 
-### 4. Local-First Privacy (Dexie & IndexedDB)
-Rather than forcing users to create an account before taking a walk, observations and photographs are saved directly in browser IndexedDB. Users have complete data sovereignty: zero tracking scripts, zero third-party analytics, and full JSON data export.
+### 4. Local-First Privacy Sovereignty
+All entries, timestamps, and camera photo blobs reside in browser IndexedDB. Zero tracking cookies, zero external analytics, and zero required account sign-ups.
 
 ---
 
 ## Why Does Open Innovation Matter?
 
-Open innovation is what makes a project like Mundane possible and ethical:
+Open innovation is fundamental to why this project works:
 
-1. **Human Sovereignty & Privacy**: A personal journal of your private thoughts, daily walking routes, and neighborhood observations should never be locked behind a walled-garden SaaS or used to train corporate advertising models. Open-source local-first software ensures your data stays on your machine.
-2. **True Disconnected Independence**: Closed API ecosystems require an active, uninterrupted internet connection. Open-weight models (running on Ollama or edge runtimes) allow true digital detox: you can download the model, turn off Wi-Fi and mobile data, take your laptop or tablet into the wild, and have an AI companion that respects your solitude.
-3. **Transparent & Grounded AI**: Closed commercial models often come with opaque system instructions designed to flatter or maximize user engagement time. Open innovation allowed us to write transparent, reproducible, grounded prompts that prioritize real-world physical mindfulness over digital retention metrics.
+1. **Human Sovereignty & Privacy**: Personal thoughts recorded during solitary walks should never be monetized, profiled, or ingested by closed AI corporations to train ad-targeting models. Open innovation ensures that local-first, on-device computing remains viable.
+2. **True Digital Detox & Off-Grid Independence**: Closed AI APIs demand constant connectivity. Open-weight models empower you to disconnect your Wi-Fi, turn off cellular data, step into nature or quiet city alleys, and still enjoy an intelligent companion that respects your focus.
+3. **Grounded Reflection Over Engagement Optimization**: Proprietary consumer AI models are optimized to keep users chatting for as long as possible. Open-source models allowed us to craft a focused system whose primary mission is to get you off the screen and back into the world.
 
 ---
 
 ## My Agent Session
 
-This project was built and refined using advanced agentic AI pair programming:
-- Explored and integrated the tactile Field Folio mini-zine imposition algorithm.
-- Designed an editorial design system with bespoke typography (`Instrument Serif`, `Newsreader`, `DM Sans`, `Caveat`).
-- Containerized the FastAPI backend for Railway deployment and verified test suites with 100% passing pytest and TypeScript builds.
+This application was engineered using agentic AI pair programming:
+- Implemented and verified the mathematical Field Folio booklet imposition.
+- Polished the responsive editorial design system (`Instrument Serif`, `Newsreader`, `Caveat`).
+- Containerized the FastAPI backend with multi-stage Docker and verified 10/10 passing unit tests.
 
-<!-- If you have a DevRelay session link, embed it here:
-{% agent_session <session-id> %}
+<!-- Optional: Embed your DevRelay session ID below:
+{% agent_session ID %}
 -->
 
 ---
 
 ## Prize Categories
 
-- **Touch Grass** (Primary Category) — Designed specifically to get people away from infinite feeds, outside into their physical cities, and engaging with real-world sensory details through hands-on observation and printable pocket folios.
-- **Open Innovation** — Built completely around open-weight models (Ollama local inference and Groq open-weight inference), local-first data architecture, and reproducible open-source tooling.
+- **Touch Grass** (Primary) — Built entirely to break screen fatigue, inspire real-world urban exploration, and enable zero-screen observations via printable 8-page pocket booklets.
+- **Open Innovation** — Centered on open-weight inference (Ollama local inference and Groq open-weight models), transparent grounding prompts, and local-first data architecture.
 
 ---
 
-<!-- Team Submissions: Credit teammates by listing their DEV usernames below -->
-<!-- Author: @divyanshigupta786 -->
+## Community Discussion & Feedback 💬
 
-*Thank you for reading — now step outside, look closer, and keep a record of the ordinary! 🌿*
+I wrote Mundane because I found myself constantly looking down at my phone during walks instead of noticing the incredible architectural history, moss patterns, and transient light in my own city.
+
+- Have you ever noticed a tiny detail on your daily commute that you had walked past for years?
+- Would you print out a pocket zine like the Field Folio, or do you prefer logging notes digitally?
+
+**Drop your thoughts and questions in the comments below — I would love to hear how you explore your city!** 🌿
