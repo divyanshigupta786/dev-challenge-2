@@ -44,10 +44,13 @@ body {
   margin: 0;
   font-family: var(--font-body);
   background-color: var(--color-concrete-paper);
+  background-image: radial-gradient(rgba(52, 59, 56, 0.035) 1px, transparent 0);
+  background-size: 24px 24px;
   color: var(--color-graphite);
   min-height: 100vh;
   line-height: 1.6;
 }
+
 
 /* ── Typography ────────────────────────────────────────────── */
 h1, h2, h3 {
@@ -99,6 +102,27 @@ h4, h5, h6 {
 .animate-soft-reveal {
   animation: softReveal 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
+
+/* ── 3D Book & Foldable Folio Animation Utilities ───────────── */
+.perspective-1000 {
+  perspective: 1200px;
+}
+
+.book-spine-crease {
+  box-shadow: inset 18px 0 25px -12px rgba(52, 59, 56, 0.18), inset -18px 0 25px -12px rgba(52, 59, 56, 0.18);
+}
+
+.paper-sheet-shadow {
+  box-shadow: 
+    0 1px 3px rgba(52, 59, 56, 0.08),
+    0 12px 28px -6px rgba(52, 59, 56, 0.14),
+    0 24px 48px -12px rgba(52, 59, 56, 0.08);
+}
+
+.paper-crease-vertical {
+  background: linear-gradient(to right, rgba(0,0,0,0.06), rgba(255,255,255,0.4) 50%, rgba(0,0,0,0.08));
+}
+
 
 /* ── Accessibility: Reduced Motion ─────────────────────────── */
 @media (prefers-reduced-motion: reduce) {

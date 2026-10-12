@@ -1,17 +1,74 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import { motion, AnimatePresence } from 'motion/react';
 import { 
   ArrowRight, 
   Printer, 
   Clock, 
   Compass, 
-  CheckCircle2
+  CheckCircle2,
+  BookOpen,
+  ChevronLeft,
+  ChevronRight,
+  Eye,
+  PenLine,
+  Sparkles
 } from 'lucide-react';
 import { Button } from '../components/Button';
 import { useQuests } from '../hooks/useQuests';
 import { useJournal } from '../hooks/useJournal';
 import { HandDrawnCircle, HandDrawnArrow, BotanicalCornerIllustration } from '../components/ObservationMarks';
 import { StreetLampIllustration } from '../components/folio/FolioIllustrations';
+
+// Curated collection of authentic urban observational scenes
+interface UrbanScene {
+  id: string;
+  url: string;
+  title: string;
+  detailPrompt: string;
+  discoveredNote: string;
+  annotation: string;
+  tag: string;
+}
+
+const URBAN_SCENES: UrbanScene[] = [
+  {
+    id: 'sprout',
+    url: 'https://images.unsplash.com/photo-1518495973542-4542c06a5843?auto=format&fit=crop&w=1200&q=80',
+    title: 'The Unnoticed Sprout',
+    detailPrompt: 'Have you noticed the wild life surviving in the joints between concrete slabs?',
+    discoveredNote: '“A resilient green sprout pushing through cracked asphalt beside a cast-iron streetlight.”',
+    annotation: 'Same street.\nNew details.',
+    tag: 'SPROUT IN ASPHALT'
+  },
+  {
+    id: 'shadow',
+    url: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1200&q=80',
+    title: 'Raking Shadows',
+    detailPrompt: 'Look at the stark geometric angle created where late sunlight hits the fire escape.',
+    discoveredNote: '“An acute diagonal shadow transforming a plain brick wall into an abstract grid.”',
+    annotation: 'Ephemeral geometry.\nLook up.',
+    tag: 'RAKING SUNLIGHT'
+  },
+  {
+    id: 'brick',
+    url: 'https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=1200&q=80',
+    title: 'Masonry Strata',
+    detailPrompt: 'Can you spot where three different repair patches overlap on this ancient wall?',
+    discoveredNote: '“Victorian red brick meeting 1960s mortar and a weathered iron tie-plate.”',
+    annotation: 'Layers of time.\nTouch the stone.',
+    tag: 'WEATHERED MASONRY'
+  },
+  {
+    id: 'iron',
+    url: 'https://images.unsplash.com/photo-1477959858617-67f30bc75b82?auto=format&fit=crop&w=1200&q=80',
+    title: 'Iron & Rain',
+    detailPrompt: 'Observe the oxidized patina and copper stain dripping down the limestone curb.',
+    discoveredNote: '“Decades of rain runoff creating a vivid turquoise rust trail down the foundation.”',
+    annotation: 'Chemical traces.\nSlow down.',
+    tag: 'OXIDIZED PATINA'
+  }
+];
 
 export function LandingPage() {
   const navigate = useNavigate();
@@ -22,6 +79,34 @@ export function LandingPage() {
   
   // Interactive "Look Closer" discovery state on Hero image
   const [isDetailDiscovered, setIsDetailDiscovered] = useState(false);
+
+  // Rotating scenarios carousel
+  const [activeSceneIndex, setActiveSceneIndex] = useState(0);
+  const [isCarouselPaused, setIsCarouselPaused] = useState(false);
+
+  useEffect(() => {
+    if (isCarouselPaused) return;
+    const timer = setInterval(() => {
+      setActiveSceneIndex((prev) => (prev + 1) % URBAN_SCENES.length);
+      setIsDetailDiscovered(false); // Reset discovery prompt for new scene
+    }, 6000);
+    return () => clearInterval(timer);
+  }, [isCarouselPaused]);
+
+  const handleNextScene = () => {
+    setActiveSceneIndex((prev) => (prev + 1) % URBAN_SCENES.length);
+    setIsDetailDiscovered(false);
+  };
+
+  const handlePrevScene = () => {
+    setActiveSceneIndex((prev) => (prev - 1 + URBAN_SCENES.length) % URBAN_SCENES.length);
+    setIsDetailDiscovered(false);
+  };
+
+  const activeScene = URBAN_SCENES[activeSceneIndex];
+
+  // Book opening toggle in showcase section
+  const [isBookletOpen, setIsBookletOpen] = useState(true);
 
   return (
     <div className="min-h-screen bg-[#F2EFE7] text-[#343B38] font-body selection:bg-dust selection:text-graphite">
@@ -65,26 +150,51 @@ export function LandingPage() {
       </header>
 
       {/* ── SECTION B: HERO ────────────────────────────────────────── */}
-      <section className="max-w-6xl mx-auto px-4 sm:px-6 pt-10 sm:pt-16 pb-16 sm:pb-24 border-b border-[#D4C6AD]/60">
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 pt-10 sm:pt-16 pb-16 sm:pb-24 border-b border-[#D4C6AD]/60 overflow-hidden">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center">
           
           {/* Left Hero Column: Typography & Intent */}
-          <div className="lg:col-span-7 space-y-6">
-            <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded bg-[#E8E4DB]/70 border border-[#D4C6AD]/60 text-[10px] font-mono uppercase tracking-widest text-oxide">
+          <motion.div 
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            className="lg:col-span-7 space-y-6"
+          >
+            <motion.div 
+              initial={{ opacity: 0, x: -10 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.15, duration: 0.4 }}
+              className="inline-flex items-center gap-2 px-2.5 py-1 rounded bg-[#E8E4DB]/70 border border-[#D4C6AD]/60 text-[10px] font-mono uppercase tracking-widest text-oxide"
+            >
               <span>FIELD JOURNAL 001</span>
               <span>•</span>
               <span className="text-patina font-bold">BLIND FIRST, AI SECOND</span>
-            </div>
+            </motion.div>
 
-            <h1 className="font-instrument italic text-5xl sm:text-6xl md:text-7xl text-[#343B38] leading-[1.04] tracking-tight">
+            <motion.h1 
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.25, duration: 0.6 }}
+              className="font-instrument italic text-5xl sm:text-6xl md:text-7xl text-[#343B38] leading-[1.04] tracking-tight"
+            >
               Your city is more interesting than you think.
-            </h1>
+            </motion.h1>
 
-            <p className="text-base sm:text-lg font-serif text-[#343B38]/85 max-w-xl leading-relaxed">
+            <motion.p 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.35, duration: 0.6 }}
+              className="text-base sm:text-lg font-serif text-[#343B38]/85 max-w-xl leading-relaxed"
+            >
               Step outside. Notice the overlooked. Keep a record of the ordinary. Mundane invites you to explore everyday street textures, unexpected geometries, and physical clues before asking AI to reflect on what you found.
-            </p>
+            </motion.p>
 
-            <div className="pt-2 flex flex-wrap items-center gap-3">
+            <motion.div 
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.45, duration: 0.5 }}
+              className="pt-2 flex flex-wrap items-center gap-3"
+            >
               <Button
                 variant="primary"
                 size="lg"
@@ -101,7 +211,7 @@ export function LandingPage() {
               >
                 <Printer size={15} /> Explore the Field Folio
               </Button>
-            </div>
+            </motion.div>
 
             {/* Micro stats / Trust note */}
             <div className="pt-4 flex items-center gap-6 text-xs text-[#A6A89C] font-mono">
@@ -111,39 +221,103 @@ export function LandingPage() {
               <span>•</span>
               <span>100% On-device</span>
             </div>
-          </div>
+          </motion.div>
 
-          {/* Right Hero Column: Interactive Documentary Urban Photo Composition */}
+          {/* Right Hero Column: Rotating Scenarios Documentary Urban Photo */}
           <div className="lg:col-span-5 relative">
-            <div className="relative rounded-2xl overflow-hidden border border-[#D4C6AD] bg-white p-3 shadow-lg">
-              {/* Photo Frame with Realistic Urban Scene */}
-              <div className="relative aspect-[4/5] rounded-xl overflow-hidden bg-[#2C2E2B] group">
-                {/* Embedded High-Fidelity Urban Scene Graphic */}
-                <div 
-                  className="w-full h-full bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
-                  style={{
-                    backgroundImage: `linear-gradient(to bottom, rgba(52, 59, 56, 0.1), rgba(52, 59, 56, 0.4)), url('https://images.unsplash.com/photo-1517524008697-84bbe3c3fd98?auto=format&fit=crop&w=1200&q=80')`
+            <div className="relative rounded-2xl overflow-hidden border border-[#D4C6AD] bg-white p-3 shadow-xl">
+              
+              {/* Photo Frame with Animated Scene Carousel */}
+              <div 
+                onMouseEnter={() => setIsCarouselPaused(true)}
+                onMouseLeave={() => setIsCarouselPaused(false)}
+                className="relative aspect-[4/5] rounded-xl overflow-hidden bg-[#2C2E2B] group"
+              >
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={activeScene.id}
+                    initial={{ opacity: 0, scale: 1.05 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.8, ease: 'easeInOut' }}
+                    className="w-full h-full bg-cover bg-center absolute inset-0"
+                    style={{
+                      backgroundImage: `linear-gradient(to bottom, rgba(52, 59, 56, 0.05), rgba(52, 59, 56, 0.45)), url('${activeScene.url}')`
+                    }}
+                  />
+                </AnimatePresence>
+
+                {/* Previous & Next manual scene buttons */}
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handlePrevScene();
                   }}
-                />
+                  aria-label="Previous urban scene"
+                  className="absolute left-2.5 top-1/2 -translate-y-1/2 z-30 w-8 h-8 rounded-full bg-black/40 backdrop-blur-sm text-white/80 hover:text-white hover:bg-black/70 flex items-center justify-center transition-all opacity-0 group-hover:opacity-100 focus:opacity-100 cursor-pointer shadow-md"
+                >
+                  <ChevronLeft size={16} />
+                </button>
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleNextScene();
+                  }}
+                  aria-label="Next urban scene"
+                  className="absolute right-2.5 top-1/2 -translate-y-1/2 z-30 w-8 h-8 rounded-full bg-black/40 backdrop-blur-sm text-white/80 hover:text-white hover:bg-black/70 flex items-center justify-center transition-all opacity-0 group-hover:opacity-100 focus:opacity-100 cursor-pointer shadow-md"
+                >
+                  <ChevronRight size={16} />
+                </button>
 
                 {/* Hand-drawn observation circle around an overlooked detail */}
                 <button
                   type="button"
                   onClick={() => setIsDetailDiscovered(!isDetailDiscovered)}
                   onMouseEnter={() => setIsDetailDiscovered(true)}
-                  className="absolute top-1/3 left-1/4 -translate-x-1/2 -translate-y-1/2 cursor-pointer z-20 group/circle focus:outline-none"
+                  className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 cursor-pointer z-20 group/circle focus:outline-none"
                   aria-label="Look closer at this detail"
                 >
-                  <HandDrawnCircle className={`w-32 h-32 transition-transform duration-300 ${isDetailDiscovered ? 'scale-110 text-oxide' : 'text-oxide/90'}`} />
+                  <HandDrawnCircle className={`w-36 h-36 transition-transform duration-300 ${isDetailDiscovered ? 'scale-110 text-oxide' : 'text-oxide/90'}`} />
                   <span className="sr-only">Interactive observation point</span>
                 </button>
 
                 {/* Handwritten callout pointing to circle */}
-                <div className="absolute top-12 right-6 z-20 pointer-events-none text-right">
-                  <span className="font-handwritten text-2xl text-white drop-shadow-md block rotate-[-4deg]">
-                    Same street.<br />New details.
-                  </span>
-                  <HandDrawnArrow className="w-12 h-10 text-white ml-auto mt-1 rotate-12 drop-shadow-md" />
+                <div className="absolute top-10 right-6 z-20 pointer-events-none text-right">
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={activeScene.id}
+                      initial={{ opacity: 0, y: -4 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.4 }}
+                    >
+                      <span className="font-handwritten text-2xl text-white drop-shadow-md block rotate-[-4deg] whitespace-pre-line leading-tight">
+                        {activeScene.annotation}
+                      </span>
+                      <HandDrawnArrow className="w-12 h-10 text-white ml-auto mt-1 rotate-12 drop-shadow-md" />
+                    </motion.div>
+                  </AnimatePresence>
+                </div>
+
+                {/* Scenario Navigation Bullets & Counter */}
+                <div className="absolute top-4 left-4 z-20 flex items-center gap-1.5 bg-black/40 backdrop-blur-md px-2.5 py-1 rounded-full border border-white/20">
+                  {URBAN_SCENES.map((scene, idx) => (
+                    <button
+                      key={scene.id}
+                      onClick={() => {
+                        setActiveSceneIndex(idx);
+                        setIsDetailDiscovered(false);
+                      }}
+                      className={`transition-all rounded-full ${
+                        activeSceneIndex === idx ? 'w-4 h-2 bg-white' : 'w-2 h-2 bg-white/40 hover:bg-white/80'
+                      }`}
+                      title={scene.title}
+                    />
+                  ))}
+                  <span className="text-[9px] font-mono text-white/80 ml-1 uppercase">{activeScene.tag}</span>
+                  <span className="text-[9px] font-mono text-white/50 ml-1">0{activeSceneIndex + 1}/0{URBAN_SCENES.length}</span>
                 </div>
 
                 {/* Signature "LOOK CLOSER" Floating Tag */}
@@ -158,8 +332,8 @@ export function LandingPage() {
                       </span>
                       <p className="text-xs font-serif text-[#343B38] leading-tight">
                         {isDetailDiscovered 
-                          ? '“A resilient green sprout pushing through cracked asphalt beside a cast-iron streetlight.”' 
-                          : 'Have you noticed the wild life surviving in the joints between concrete slabs?'}
+                          ? activeScene.discoveredNote 
+                          : activeScene.detailPrompt}
                       </p>
                     </div>
                     <span className="w-6 h-6 rounded-full bg-oxide/10 text-oxide flex items-center justify-center text-xs font-bold flex-shrink-0">
@@ -290,7 +464,7 @@ export function LandingPage() {
         </div>
       </section>
 
-      {/* ── SECTION D: FIELD FOLIO SHOWCASE ────────────────────────── */}
+      {/* ── SECTION D: FIELD FOLIO SHOWCASE WITH BOOK OPENING ANIMATION ─ */}
       <section className="max-w-6xl mx-auto px-4 sm:px-6 py-16 sm:py-24 border-b border-[#D4C6AD]/60">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
           
@@ -316,11 +490,11 @@ export function LandingPage() {
               </div>
               <div className="flex items-center gap-2">
                 <CheckCircle2 size={14} className="text-patina" />
-                <span>Single-page worksheet and digital viewer also included</span>
+                <span>Interactive book-opening spread simulator</span>
               </div>
             </div>
 
-            <div className="pt-2">
+            <div className="pt-2 flex items-center gap-3">
               <Button
                 variant="primary"
                 size="lg"
@@ -329,25 +503,54 @@ export function LandingPage() {
               >
                 Create Your Field Folio <ArrowRight size={16} />
               </Button>
+              <Button
+                variant="secondary"
+                size="lg"
+                onClick={() => setIsBookletOpen(!isBookletOpen)}
+                className="gap-1.5 text-xs bg-white border-[#D4C6AD]"
+              >
+                <BookOpen size={14} />
+                {isBookletOpen ? 'Fold Booklet' : 'Open Booklet'}
+              </Button>
             </div>
           </div>
 
-          {/* Folio Physical Booklet Representation */}
-          <div className="lg:col-span-7 bg-[#E8E4DB]/50 border border-[#D4C6AD] rounded-2xl p-6 sm:p-8 relative overflow-hidden">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {/* Interactive Animated Book-Opening Showcase */}
+          <div className="lg:col-span-7 bg-[#E8E4DB]/60 border border-[#D4C6AD] rounded-2xl p-6 sm:p-8 relative overflow-hidden group">
+            {/* Top Badge with Toggle */}
+            <div className="flex justify-between items-center mb-6 text-[10px] font-mono text-[#A6A89C]">
+              <span className="uppercase tracking-widest text-oxide font-bold">1 SHEET • 8 PAGES • MINI-ZINE</span>
+              <button 
+                onClick={() => setIsBookletOpen(!isBookletOpen)}
+                className="font-handwritten text-base text-oxide hover:underline flex items-center gap-1 cursor-pointer"
+              >
+                {isBookletOpen ? 'Tap to close cover ✦' : 'Tap to unfold booklet ✦'}
+              </button>
+            </div>
+
+            {/* 3D-effect Physical Book Spread with Animated Folding */}
+            <div className="relative flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-0 perspective-1000 py-4 min-h-[360px]">
               
-              {/* Cover Replica */}
-              <div className="bg-[#FAF7F2] border border-[#D4C6AD] rounded-lg p-5 shadow-md flex flex-col justify-between aspect-[1/1.4] text-center">
-                <div className="flex justify-between items-center text-[8px] font-mono text-[#A6A89C]">
+              {/* Left Booklet Cover (flips closed / opens flat) */}
+              <motion.div 
+                animate={{ 
+                  rotateY: isBookletOpen ? 0 : 75,
+                  scale: isBookletOpen ? 1 : 0.95
+                }}
+                transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                className="w-full sm:w-1/2 bg-[#FCFAF6] border border-[#D4C6AD] rounded-l-lg rounded-r-xs p-5 shadow-xl sm:origin-right flex flex-col justify-between aspect-[1/1.42] text-center relative z-20 border-r-[#D4C6AD]/40"
+              >
+                <div className="flex justify-between items-center text-[8px] font-mono text-[#A6A89C] border-b border-[#D4C6AD]/60 pb-1">
                   <span>MUNDANE / FIELD FOLIO</span>
                   <span className="text-oxide font-bold">No. 001</span>
                 </div>
                 <div className="my-auto py-2">
+                  <span className="text-[8px] uppercase tracking-widest text-[#A6A89C] block mb-1">PAGE 1 / COVER</span>
                   <h4 className="font-instrument italic text-2xl text-[#343B38] mb-2 leading-tight">
                     The Things We Walk Past
                   </h4>
                   <StreetLampIllustration className="w-8 h-16 mx-auto text-[#343B38]" />
-                  <p className="text-[9px] font-serif italic text-[#A6A89C] mt-1">
+                  <p className="text-[9px] font-serif italic text-[#A6A89C] mt-2">
                     A small study of the overlooked.
                   </p>
                 </div>
@@ -355,51 +558,73 @@ export function LandingPage() {
                   <span>DATE: _________</span>
                   <span>Mundane</span>
                 </div>
-              </div>
+              </motion.div>
 
-              {/* Inside Page Spread Replica */}
-              <div className="bg-[#FAF7F2] border border-[#D4C6AD] rounded-lg p-5 shadow-md flex flex-col justify-between aspect-[1/1.4]">
+              {/* Spine shadow crease */}
+              <div className="hidden sm:block w-1.5 h-full absolute left-1/2 -translate-x-1/2 z-20 pointer-events-none bg-gradient-to-r from-black/15 via-black/5 to-black/15 rounded-full" />
+
+              {/* Right Booklet Interior Spread (Revealed when open) */}
+              <motion.div 
+                animate={{ 
+                  rotateY: isBookletOpen ? 0 : -75,
+                  opacity: isBookletOpen ? 1 : 0.6
+                }}
+                transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                className="w-full sm:w-1/2 bg-[#FAF7F2] border border-[#D4C6AD] rounded-r-lg rounded-l-xs p-5 shadow-xl sm:origin-left flex flex-col justify-between aspect-[1/1.42] relative z-10 border-l-[#D4C6AD]/40"
+              >
                 <div>
                   <div className="flex justify-between items-center text-[8px] font-mono text-[#A6A89C] border-b border-[#E8E4DB] pb-1 mb-2">
                     <span>03 / WHAT TO NOTICE</span>
-                    <span>P. 3</span>
+                    <span>PAGE 3</span>
                   </div>
-                  <h4 className="font-instrument italic text-xl text-[#343B38] mb-2">
+                  <h4 className="font-instrument italic text-xl text-[#343B38] mb-1">
                     What to Notice
                   </h4>
-                  <div className="space-y-2">
-                    <div className="flex items-center gap-1.5 text-[10px] font-serif text-[#343B38]">
-                      <div className="w-2.5 h-2.5 border border-[#343B38] rounded-xs" />
-                      <span>Surfaces marked by time</span>
+                  <div className="space-y-1.5">
+                    <div className="flex items-center gap-1.5 text-[9.5px] font-serif text-[#343B38]">
+                      <div className="w-2.5 h-2.5 border border-[#343B38] rounded-xs bg-white" />
+                      <span>Surfaces marked by time or use</span>
                     </div>
-                    <div className="flex items-center gap-1.5 text-[10px] font-serif text-[#343B38]">
-                      <div className="w-2.5 h-2.5 border border-[#343B38] rounded-xs" />
-                      <span>Unexpected shadows</span>
+                    <div className="flex items-center gap-1.5 text-[9.5px] font-serif text-[#343B38]">
+                      <div className="w-2.5 h-2.5 border border-[#343B38] rounded-xs bg-white" />
+                      <span>Unexpected geometric shadows</span>
                     </div>
-                    <div className="flex items-center gap-1.5 text-[10px] font-serif text-[#343B38]">
-                      <div className="w-2.5 h-2.5 border border-[#343B38] rounded-xs" />
-                      <span>Patterns in unusual places</span>
+                    <div className="flex items-center gap-1.5 text-[9.5px] font-serif text-[#343B38]">
+                      <div className="w-2.5 h-2.5 border border-[#343B38] rounded-xs bg-white" />
+                      <span>Repeating street patterns</span>
                     </div>
                   </div>
                 </div>
 
-                <div className="border border-dashed border-[#D4C6AD] rounded p-2 text-center my-auto">
-                  <span className="text-[8px] font-mono text-[#A6A89C]">SKETCHBOOK AREA</span>
-                  <div className="h-10" />
+                {/* Interior sketch frame */}
+                <div className="border border-dashed border-[#D4C6AD] rounded p-2 text-center my-2 bg-white/60">
+                  <span className="text-[7.5px] font-mono text-[#A6A89C] block mb-1">PAGE 5 • SKETCHBOOK</span>
+                  <div className="h-8 flex items-center justify-center">
+                    <p className="text-[8px] font-serif italic text-[#A6A89C]">
+                      "Draw what you noticed, not what you think should be there."
+                    </p>
+                  </div>
                 </div>
 
                 <div className="pt-2 border-t border-[#E8E4DB] text-[8px] font-mono text-[#A6A89C] flex justify-between">
-                  <span>PRINT &amp; FOLD</span>
-                  <span>P. 4</span>
+                  <span>TOUCH GRASS</span>
+                  <span>PAGE 4 &amp; 5</span>
                 </div>
-              </div>
+              </motion.div>
 
             </div>
 
-            <div className="mt-4 text-center">
-              <span className="font-handwritten text-lg text-graphite">
-                8 pages • 1 A4 sheet • No glue required
+            {/* Bottom Folding Cue */}
+            <div className="mt-4 flex flex-wrap justify-between items-center text-xs text-graphite border-t border-[#D4C6AD]/60 pt-3">
+              <span className="font-handwritten text-base text-oxide">
+                Folds along 3 simple creases with a center slit ✦
               </span>
+              <button
+                onClick={() => navigate('/folio')}
+                className="text-xs font-mono underline hover:text-oxide transition-colors flex items-center gap-1"
+              >
+                Open in Folio Studio <ArrowRight size={12} />
+              </button>
             </div>
           </div>
 
@@ -423,9 +648,14 @@ export function LandingPage() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           
           {/* Step 1 */}
-          <div className="bg-white border border-[#D4C6AD] rounded-xl p-6 sm:p-7 shadow-sm relative">
-            <div className="w-10 h-10 rounded-full bg-[#FAF7F2] border border-[#D4C6AD] text-oxide font-mono text-base font-bold flex items-center justify-center mb-5">
-              1
+          <div className="bg-white border border-[#D4C6AD] rounded-xl p-6 sm:p-7 shadow-sm relative hover:border-oxide/40 transition-colors">
+            <div className="flex items-center justify-between mb-5">
+              <div className="w-10 h-10 rounded-full bg-[#FAF7F2] border border-[#D4C6AD] text-oxide font-mono text-base font-bold flex items-center justify-center">
+                1
+              </div>
+              <div className="w-8 h-8 rounded-full bg-dust/30 text-graphite flex items-center justify-center">
+                <Eye size={16} />
+              </div>
             </div>
             <h3 className="font-heading text-xl text-[#343B38] mb-2">Go outside</h3>
             <p className="text-xs font-serif text-[#343B38]/85 leading-relaxed">
@@ -437,9 +667,14 @@ export function LandingPage() {
           </div>
 
           {/* Step 2 */}
-          <div className="bg-white border border-[#D4C6AD] rounded-xl p-6 sm:p-7 shadow-sm relative">
-            <div className="w-10 h-10 rounded-full bg-[#FAF7F2] border border-[#D4C6AD] text-oxide font-mono text-base font-bold flex items-center justify-center mb-5">
-              2
+          <div className="bg-white border border-[#D4C6AD] rounded-xl p-6 sm:p-7 shadow-sm relative hover:border-oxide/40 transition-colors">
+            <div className="flex items-center justify-between mb-5">
+              <div className="w-10 h-10 rounded-full bg-[#FAF7F2] border border-[#D4C6AD] text-oxide font-mono text-base font-bold flex items-center justify-center">
+                2
+              </div>
+              <div className="w-8 h-8 rounded-full bg-dust/30 text-graphite flex items-center justify-center">
+                <PenLine size={16} />
+              </div>
             </div>
             <h3 className="font-heading text-xl text-[#343B38] mb-2">Save your notes</h3>
             <p className="text-xs font-serif text-[#343B38]/85 leading-relaxed">
@@ -451,9 +686,14 @@ export function LandingPage() {
           </div>
 
           {/* Step 3 */}
-          <div className="bg-white border border-[#D4C6AD] rounded-xl p-6 sm:p-7 shadow-sm relative">
-            <div className="w-10 h-10 rounded-full bg-[#FAF7F2] border border-[#D4C6AD] text-oxide font-mono text-base font-bold flex items-center justify-center mb-5">
-              3
+          <div className="bg-white border border-[#D4C6AD] rounded-xl p-6 sm:p-7 shadow-sm relative hover:border-oxide/40 transition-colors">
+            <div className="flex items-center justify-between mb-5">
+              <div className="w-10 h-10 rounded-full bg-[#FAF7F2] border border-[#D4C6AD] text-oxide font-mono text-base font-bold flex items-center justify-center">
+                3
+              </div>
+              <div className="w-8 h-8 rounded-full bg-oxide/10 text-oxide flex items-center justify-center">
+                <Sparkles size={16} />
+              </div>
             </div>
             <h3 className="font-heading text-xl text-[#343B38] mb-2">Request AI reflection</h3>
             <p className="text-xs font-serif text-[#343B38]/85 leading-relaxed">
