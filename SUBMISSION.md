@@ -2,15 +2,14 @@
 title: Mundane — Your City Is More Interesting Than You Think (Offline Urban Field Journal)
 published: true
 tags: devchallenge, hf26challenge, opensource, ai
+cover_image: https://images.unsplash.com/photo-1518495973542-4542c06a5843?auto=format&fit=crop&w=1200&q=80
 ---
 
 *This is a submission for the [Hacktoberfest Open-Source AI Challenge Week 1: Touch Grass](https://dev.to/challenges/hacktoberfest-week1-2026-10-05)*
 
 ---
 
-> 🌿 **Quick Note on Cover Image:** When publishing on DEV.to, remember to click **"Add a cover image"** at the top and upload a screenshot of the Mundane Landing Page hero! It ensures the post renders beautifully across the DEV home feed and social cards.
-
----
+![Mundane Cover — The Overlooked City](https://images.unsplash.com/photo-1518495973542-4542c06a5843?auto=format&fit=crop&w=1200&q=80)
 
 ## What I Built
 
@@ -20,24 +19,29 @@ Most modern AI applications do the exact opposite of getting you outside: they t
 
 I built **Mundane** as an antidote: a tactile, editorial urban field journal inspired by documentary photography and independent print zines. It invites you to step outside, slow down, put your phone in your pocket, and record the subtle, overlooked textures, geometries, and artifacts of your everyday neighborhood.
 
-<!-- 📸 Screenshot: Mundane Landing Page Hero with rotating urban documentary scenes & "LOOK CLOSER" prompt -->
+---
 
 ### The Defining Principle: Blind First, AI Second
+
 Mundane is governed by a strict philosophy: **AI never interprets before you observe.**
+
 1. **Observe**: Pick an observational quest (e.g., *Pattern Hunt*, *Urban Archaeology*, *Design Detective*, *Light and Shadow*, or *Unexpected Geometry*).
 2. **Record**: Register your physical observations in your own unfiltered words. Attach an optional photo. Everything is stored locally on-device in **IndexedDB**.
 3. **Reflect (Optional & Grounded)**: Only after your observation is saved can you request an AI reflection. The model reflects strictly on what you documented, synthesizes your field note, asks **one** thought-provoking follow-up question, and recommends your next urban walk.
 
-<!-- 📸 Screenshot: The Observation Deck and Grounded AI Reflection flow -->
+![Raking Shadows and Everyday Geometries](https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1200&q=80)
+
+---
 
 ### The Mundane Field Folio Studio (Zero-Screen Immersion)
+
 To achieve true digital detox, Mundane features the **Field Folio Studio**:
 - **8-Page Pocket Mini-Zine**: An algorithmic imposition engine formats an entire 8-page observation booklet onto a **single sheet of A4 paper**.
 - **No Glue Required**: Three simple creases and one center slit transform the printed sheet into an authentic pocket zine complete with cover art, observation checklist, sketching frame, and notes log.
 - **Single-Page Worksheet**: Printable A4 field notes sheet for clipboards.
 - **3D Digital Folio Viewer**: An interactive book-opening simulator featuring authentic paper folds, spine gutter shading, and tactile page-turning controls.
 
-<!-- 📸 Screenshot: Field Folio 8-page imposition layout and 3D folding booklet showcase -->
+![Tactile Field Journaling](https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=1200&q=80)
 
 ---
 
@@ -110,10 +114,6 @@ This application was engineered using agentic AI pair programming:
 - Implemented and verified the mathematical Field Folio booklet imposition.
 - Polished the responsive editorial design system (`Instrument Serif`, `Newsreader`, `Caveat`).
 - Containerized the FastAPI backend with multi-stage Docker and verified 10/10 passing unit tests.
-
-<!-- Optional: Embed your DevRelay session ID below:
-{% agent_session ID %}
--->
 
 ---
 
