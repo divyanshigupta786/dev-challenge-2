@@ -32,6 +32,8 @@ const config: Config = {
       },
       fontFamily: {
         heading: ['Newsreader', 'Georgia', 'serif'],
+        instrument: ['"Instrument Serif"', 'Newsreader', 'Georgia', 'serif'],
+        handwritten: ['Caveat', 'cursive'],
         body: ['DM Sans', 'system-ui', 'sans-serif'],
         mono: ['JetBrains Mono', 'Fira Code', 'monospace'],
       },

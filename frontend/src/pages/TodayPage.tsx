@@ -49,6 +49,10 @@ export function TodayPage() {
     navigate('/observe', { state: { quest } });
   };
 
+  const handleMakeFolio = (quest: Quest) => {
+    navigate(`/folio/${quest.id}`);
+  };
+
   return (
     <div className="max-w-2xl mx-auto px-4 py-8 md:py-12 pb-24 md:pb-8">
       {/* Header */}
@@ -59,15 +63,26 @@ export function TodayPage() {
         className="mb-10"
       >
         {/* Mobile wordmark */}
-        <div className="md:hidden mb-6">
-          <h1 className="font-heading text-3xl text-graphite tracking-tight">Mundane</h1>
-          <p className="text-sm text-text-muted mt-1">Your city is more interesting than you think.</p>
+        <div className="md:hidden mb-6 flex items-center justify-between">
+          <div>
+            <h1 className="font-heading text-3xl text-graphite tracking-tight">Mundane</h1>
+            <p className="text-xs text-text-muted font-serif italic">Your city is more interesting than you think.</p>
+          </div>
+          <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-dust/40 border border-dust text-graphite">
+            FIELD GUIDE
+          </span>
         </div>
 
-        <h2 className="font-heading text-4xl md:text-5xl text-graphite leading-none tracking-tight mb-3">
+        <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded bg-[#FAF7F2] border border-[#D4C6AD] text-[10px] font-mono uppercase tracking-widest text-oxide mb-3">
+          <span>DAILY INVITATION</span>
+          <span>•</span>
+          <span className="text-patina font-bold">BLIND FIRST</span>
+        </div>
+
+        <h2 className="font-instrument italic text-4xl sm:text-5xl text-graphite leading-none tracking-tight mb-3">
           Look a little closer.
         </h2>
-        <p className="text-text-muted leading-relaxed max-w-md">
+        <p className="font-serif text-sm sm:text-base text-graphite/85 leading-relaxed max-w-lg">
           Step outside, find the quest below, and record what you actually notice—before asking the AI to reflect on it.
         </p>
 
@@ -112,7 +127,12 @@ export function TodayPage() {
         )}
 
         {dailyQuest && !questsLoading && (
-          <QuestCard quest={dailyQuest} onBegin={handleBeginQuest} featured />
+          <QuestCard
+            quest={dailyQuest}
+            onBegin={handleBeginQuest}
+            onMakeFolio={handleMakeFolio}
+            featured
+          />
         )}
       </motion.section>
 
@@ -160,7 +180,13 @@ export function TodayPage() {
           >
             <p className="text-xs text-text-muted mb-3">{themeQuests.length} quests in {selectedTheme}</p>
             {themeQuests.map((quest) => (
-              <QuestCard key={quest.id} quest={quest} onBegin={handleBeginQuest} compact />
+              <QuestCard
+                key={quest.id}
+                quest={quest}
+                onBegin={handleBeginQuest}
+                onMakeFolio={handleMakeFolio}
+                compact
+              />
             ))}
           </motion.div>
         )}

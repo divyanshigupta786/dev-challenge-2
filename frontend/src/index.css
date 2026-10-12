@@ -90,11 +90,55 @@ h4, h5, h6 {
 .font-heading { font-family: var(--font-heading); }
 .font-body    { font-family: var(--font-body); }
 
-/* ── Reduced Motion ────────────────────────────────────────── */
+/* ── Editorial Transitions & Micro-Interactions ─────────────── */
+@keyframes softReveal {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.animate-soft-reveal {
+  animation: softReveal 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* ── Accessibility: Reduced Motion ─────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
+
+/* ── Print Styles (Mundane Field Folio Imposition) ──────────── */
+@media print {
+  @page {
+    margin: 5mm;
+    size: auto;
+  }
+
+  body {
+    background: #FFFFFF !important;
+    color: #000000 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Hide app chrome during printing */
+  aside,
+  nav,
+  header,
+  footer,
+  .print\:hidden {
+    display: none !important;
+  }
+
+  /* Reset main layout container for print */
+  main {
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    max-width: none !important;
+  }
+}
+

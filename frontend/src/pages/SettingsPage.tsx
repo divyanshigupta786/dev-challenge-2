@@ -39,7 +39,12 @@ export function SettingsPage() {
   return (
     <div className="max-w-xl mx-auto px-4 py-8 pb-28 md:pb-8">
       <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}>
-        <h1 className="font-heading text-3xl text-graphite tracking-tight leading-none mb-8">Settings</h1>
+        <div className="inline-flex items-center gap-2 text-[10px] font-mono uppercase tracking-widest text-oxide mb-2">
+          <span>APPLICATION CONFIGURATION</span>
+          <span>•</span>
+          <span className="text-patina font-bold">100% PRIVATE</span>
+        </div>
+        <h1 className="font-instrument italic text-4xl text-graphite tracking-tight leading-none mb-8">Settings</h1>
 
         {/* Privacy */}
         <Section title="Privacy" icon={<Shield size={15} />}>

@@ -17,9 +17,11 @@ export function ObservePage() {
 
   // Quest can come via navigation state or fall back to daily quest
   const questFromState = location.state?.quest as Quest | undefined;
+  const prefillFromState = (location.state?.prefillObservation as string) ?? '';
+  const isFromFolio = location.state?.source === 'field-folio';
   const [quest] = useState<Quest | null>(questFromState ?? null);
 
-  const [observationText, setObservationText] = useState('');
+  const [observationText, setObservationText] = useState(prefillFromState);
   const [placeLabel, setPlaceLabel] = useState('');
   const [photoBlob, setPhotoBlob] = useState<Blob | null>(null);
   const [photoPreview, setPhotoPreview] = useState<string | null>(null);
@@ -191,19 +193,30 @@ export function ObservePage() {
 
       <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3 }}>
         {/* Quest header */}
-        <div className="mb-6 pb-6 border-b border-border-subtle">
-          <span className="text-xs font-medium uppercase tracking-widest text-text-muted block mb-2">
-            {quest.theme}
-          </span>
-          <h1 className="font-heading text-3xl text-graphite leading-tight mb-3">{quest.title}</h1>
-          <p className="text-sm text-text-muted leading-relaxed">{quest.description}</p>
+        <div className="mb-6 pb-6 border-b border-[#D4C6AD]/60">
+          <div className="flex items-center justify-between gap-2 mb-2">
+            <span className="text-[10px] font-mono uppercase tracking-widest text-oxide font-bold">
+              FIELD OBSERVATION • {quest.theme}
+            </span>
+            <span className="text-[10px] font-mono text-[#A6A89C]">
+              QUEST #{quest.id}
+            </span>
+          </div>
+          <h1 className="font-instrument italic text-3xl sm:text-4xl text-graphite leading-tight mb-3">{quest.title}</h1>
+          <p className="font-serif text-sm text-graphite/80 leading-relaxed">{quest.description}</p>
         </div>
 
         {/* Blind-first instruction */}
         <div className="bg-patina/8 border border-patina/20 rounded-lg p-4 mb-6">
-          <p className="text-sm text-patina leading-relaxed">
-            <strong className="font-medium">Observe first.</strong> Go outside, find your subject, and record what you notice in your own words. AI reflection becomes available after you save.
-          </p>
+          {isFromFolio ? (
+            <p className="text-sm text-patina leading-relaxed">
+              <strong className="font-medium">Field Folio Entry:</strong> Transcribe your handwritten field notes or attach a photo of your folded booklet below. AI reflection will be available after you save.
+            </p>
+          ) : (
+            <p className="text-sm text-patina leading-relaxed">
+              <strong className="font-medium">Observe first.</strong> Go outside, find your subject, and record what you notice in your own words. AI reflection becomes available after you save.
+            </p>
+          )}
         </div>
 
         {/* Observation textarea */}

@@ -80,22 +80,27 @@ export function JournalPage() {
         className="flex items-start justify-between mb-6"
       >
         <div>
-          <h1 className="font-heading text-3xl text-graphite tracking-tight leading-none mb-1">Journal</h1>
-          <p className="text-sm text-text-muted">
-            {entries.length} {entries.length === 1 ? 'entry' : 'entries'}
+          <div className="inline-flex items-center gap-2 text-[10px] font-mono uppercase tracking-widest text-oxide mb-1">
+            <span>OFFLINE FIELD ARCHIVE</span>
+            <span>•</span>
+            <span className="text-patina font-bold">INDEXEDDB</span>
+          </div>
+          <h1 className="font-instrument italic text-4xl text-graphite tracking-tight leading-none mb-1">Your Journal</h1>
+          <p className="text-xs font-serif text-[#343B38]/80">
+            {entries.length} {entries.length === 1 ? 'recorded observation' : 'recorded observations'} stored on this device.
           </p>
         </div>
         <div className="flex gap-2">
           {entries.length > 0 && (
             <Button
-              variant="ghost"
+              variant="secondary"
               size="sm"
               onClick={handleExport}
-              className="gap-1.5 text-text-muted"
+              className="gap-1.5 text-xs bg-white border-[#D4C6AD]"
               title="Export journal as JSON"
             >
-              <Download size={14} />
-              Export
+              <Download size={13} />
+              Export JSON
             </Button>
           )}
         </div>
